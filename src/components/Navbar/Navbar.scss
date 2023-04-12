@@ -1,0 +1,112 @@
+@import "../../App.scss";
+
+.navbar {
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  .navbar-brand {
+    font-size: 2.4rem;
+  }
+
+  .brand-and-toggler {
+    .slider-show-btn {
+      margin-right: 12px;
+      margin-top: 4px;
+      transition: $transition-ease;
+      -webkit-transition: $transition-ease;
+      -moz-transition: $transition-ease;
+      -ms-transition: $transition-ease;
+      -o-transition: $transition-ease;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    .navbar-search {
+      padding: 4px;
+      margin-left: 32px;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      -ms-border-radius: 4px;
+      -o-border-radius: 4px;
+      .form-control {
+        width: 100%;
+        padding: 0 16px;
+        color: rgba(0, 0, 0 ,0.8);
+        caret-color: $main-blue;
+        &::placeholder {
+          font-size: 14px;
+          font-family: $font-family-manrope;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .search-btn {
+        background-color: $main-blue;
+        width: 60px;
+        height: 32px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+      }
+
+      @media screen and (max-width: 576px) {
+        display: none;
+      }
+    }
+    .navbar-nav {
+      margin-left: 32px;
+      margin-top: 8px;
+      .nav-item {
+        margin-right: 16px;
+        .nav-link {
+          transition: $transition-ease;
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
+    }
+  }
+  .navbar-cart {
+    margin-left: 32px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 2rem;
+
+    .cart-btn {
+      position: relative;
+      .cart-items-value {
+        position: absolute;
+        top: -10px;
+        right: -8px;
+        background-color: $clr-white;
+        font-size: 14px;
+        font-weight: 500;
+        color: $main-blue;
+        padding: 0 0.5rem;
+        width: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &:hover {
+        .cart-modal {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
