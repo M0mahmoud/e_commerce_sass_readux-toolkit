@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Sidebar.scss";
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getSidebarStatus, setSidebarOff } from "../../store/sidebarSlice";
+import { getAllCategories, fetchCategory } from "../../store/categorySlice";
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const isSidebarOn = useSelector(getSidebarStatus);
+  const categories = useSelector(getAllCategories);
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, [dispatch]);
+
   return (
-    <aside className="sidebar">
-      <button className="btn sidebar-hide-btn">
+    <aside className={`sidebar ${isSidebarOn ? "hide-sidebar" : ""}`}>
+      <button
+        className="btn sidebar-hide-btn"
+        onClick={() => dispatch(setSidebarOff())}
+      >
         <i className="fas fa-times"></i>
       </button>
       <div className="cnt">
@@ -13,26 +26,17 @@ const Sidebar = () => {
           All Categories
         </div>
         <ul className="list">
-          <li>
-            <Link to={"/"} className="link  text-capitalize">
-              ONE
-            </Link>
-          </li>
-          <li>
-            <Link to={"/"} className="link  text-capitalize">
-              ONE
-            </Link>
-          </li>
-          <li>
-            <Link to={"/"} className="link  text-capitalize">
-              ONE
-            </Link>
-          </li>
-          <li>
-            <Link to={"/"} className="link  text-capitalize">
-              ONE
-            </Link>
-          </li>
+          {categories.map((el, index) => (
+            <li key={el}>
+              <Link
+                to={`category/${el}`}
+                onClick={() => dispatch(setSidebarOff())}
+                className="link  text-capitalize"
+              >
+                {el.replace("-", " ")}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </aside>

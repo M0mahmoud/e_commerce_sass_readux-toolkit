@@ -1,13 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-
+import { getAllCategories } from "../../store/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSidebarOn } from "../../store/sidebarSlice";
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector(getAllCategories);
+
   return (
     <nav className="navbar">
       <div className="navbar-con flex align-center">
         <div className="brand-and-toggler flex align-center">
-          <button className="slider-show-btn text-white">
+          <button
+            className="slider-show-btn text-white"
+            onClick={() => dispatch(setSidebarOn())}
+          >
             <i className="fas fa-bars"></i>
           </button>
           <Link to={"/"} className="navbar-brand flex align-center">
@@ -37,7 +45,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <ul className="navbar-nav flex align-center fs-12 fw-4 font-manrope">
+          {/* Move it as new section in home  */}
+          {/* <ul className="navbar-nav flex align-center fs-12 fw-4 font-manrope">
             <li className="nav-item no-wrap">
               <Link to={`/`} className="nav-link text-capitalize">
                 One{" "}
@@ -53,7 +62,7 @@ const Navbar = () => {
                 Three
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         <div className="navbar-cart flex align-center">
