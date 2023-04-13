@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CategoryProductPage.scss";
 import ProductList from "../../components/ProductList/ProductList";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  getAllProductsByCategory,
+  getCategoryProductsStatus,
+} from "../../store/categorySlice";
+import { fetchCategorySingleProducts } from "../../store/categorySlice";
+import { STATUS } from "../../utils/status";
+import Loader from "../../components/Loader/Loader";
+
 const CategoryProductPage = () => {
+  const dispatch = useDispatch();
+  const { category } = useParams();
+  const categoryProducts = useSelector(getAllProductsByCategory);
+  const categoryProductsStatus = useSelector(getCategoryProductsStatus);
+
+  useEffect(() => {
+    dispatch(fetchCategorySingleProducts(category));
+  }, [dispatch, category]);
+
   return (
     <div className="cat-products py-5 bg-whitesmoke">
       <div className="container">
@@ -12,7 +31,11 @@ const CategoryProductPage = () => {
             </h3>
           </div>
 
-          <ProductList />
+          {categoryProductsStatus === STATUS.LOADING ? (
+            <Loader />
+          ) : (
+            <ProductList products={categoryProducts} />
+          )}
         </div>
       </div>
     </div>

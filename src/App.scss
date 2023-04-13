@@ -419,3 +419,8 @@ select {
     background-color: $main-blue;
   }
 }
+@media print {
+  html, body {
+     display: none;  /* hide whole page */
+  }
+}

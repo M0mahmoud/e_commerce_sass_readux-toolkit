@@ -30,7 +30,7 @@ export const fetchCategorySingleProducts = createAsyncThunk(
     try {
       const response = await fetch(`${BASE_URL}products/category/${category}`);
       const data = await response.json();
-      return data;
+      return data.products;
     } catch (error) {
       return rejectWithValue(error.message || error);
     }
