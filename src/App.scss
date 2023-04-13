@@ -17,6 +17,16 @@ $font-family-poppins: "Poppins", sans-serif;
 $transition-ease: all 300ms ease-in-out;
 
 // global styles & resets
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background-color: $main-blue;
+  outline: 1px solid $main-blue;
+}
 *,
 *::after,
 *::before {
@@ -420,7 +430,8 @@ select {
   }
 }
 @media print {
-  html, body {
-     display: none;  /* hide whole page */
+  html,
+  body {
+    display: none; /* hide whole page */
   }
 }

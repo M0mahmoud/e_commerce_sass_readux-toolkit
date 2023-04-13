@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
-import { getAllCategories } from "../../store/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarOn } from "../../store/sidebarSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
-  const categories = useSelector(getAllCategories);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const searchTermHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <nav className="navbar">
@@ -35,13 +39,16 @@ const Navbar = () => {
                 type="text"
                 className="form-control fs-14 "
                 placeholder="Search Your Preferred Items..."
+                onChange={(e) => searchTermHandler(e)}
               />
-              <Link
-                to={"/"}
-                className="text-white search-btn flex align-center justify-center"
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </Link>
+              <button type="submit">
+                <Link
+                  to={`search/${searchTerm}`}
+                  className="text-white search-btn flex align-center justify-center"
+                >
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </button>
             </div>
           </div>
 
