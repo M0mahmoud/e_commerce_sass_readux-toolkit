@@ -1,16 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.scss";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import CartModal from "../../components/CartModal/CartModal";
+import {
+  getAllCartItemsCount,
+  getAllCarts,
+  getCartTotal,
+} from "../../store/cartSlice";
 import { setSidebarOn } from "../../store/sidebarSlice";
+import "./Navbar.scss";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
+  const carts = useSelector(getAllCarts);
+  const itemsCount = useSelector(getAllCartItemsCount);
 
   const searchTermHandler = (e) => {
     e.preventDefault();
     setSearchTerm(e.target.value);
   };
+
+  useEffect(() => {
+    dispatch(getCartTotal());
+  }, [carts]);
 
   return (
     <nav className="navbar">
@@ -51,31 +64,13 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-
-          {/* Move it as new section in home  */}
-          {/* <ul className="navbar-nav flex align-center fs-12 fw-4 font-manrope">
-            <li className="nav-item no-wrap">
-              <Link to={`/`} className="nav-link text-capitalize">
-                One{" "}
-              </Link>
-            </li>
-            <li className="nav-item no-wrap">
-              <Link to={`/`} className="nav-link text-capitalize">
-                Two{" "}
-              </Link>
-            </li>
-            <li className="nav-item no-wrap">
-              <Link to={`/`} className="nav-link text-capitalize">
-                Three
-              </Link>
-            </li>
-          </ul> */}
         </div>
 
         <div className="navbar-cart flex align-center">
-          <Link to="/" className="cart-btn">
+          <Link to="/cart" className="cart-btn">
             <i className="fa-solid fa-cart-shopping"></i>
-            <div className="cart-items-value">12</div>
+            <div className="cart-items-value">{itemsCount}</div>
+            <CartModal carts={carts} />
           </Link>
         </div>
       </div>

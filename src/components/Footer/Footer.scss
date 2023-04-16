@@ -1,6 +1,10 @@
 @import "../../App.scss";
 
 footer {
+  position: static;
+  bottom: 0;
+  width: 100%;
+
   background-color: $main-blue;
   .copyright-text {
     display: block;

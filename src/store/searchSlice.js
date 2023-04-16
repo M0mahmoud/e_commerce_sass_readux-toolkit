@@ -4,7 +4,7 @@ import { STATUS } from "../utils/status";
 
 const initialState = {
   searchProducts: [],
-  searchProductsStatus: STATUS.IDLE,
+  searchProductsStatus: STATUS.LOADING,
 };
 
 export const fetchSearchProducts = createAsyncThunk(

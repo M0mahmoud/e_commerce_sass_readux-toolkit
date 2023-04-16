@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductSinglePage.scss";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import CartMessage from "../../components/CartMessage/CartMessage";
+import Loader from "../../components/Loader/Loader";
+import {
+  addToCart,
+  getCartMessageStatus,
+  setCartMessageOff,
+  setCartMessageOn,
+} from "../../store/cartSlice";
 import {
   fetchProductSingleAsync,
   getProductSingle,
   getSingleProductStatus,
 } from "../../store/productSlice";
-import { STATUS } from "../../utils/status";
-import Loader from "../../components/Loader/Loader";
 import { formatPrice } from "../../utils/helpers";
+import { STATUS } from "../../utils/status";
 
 const ProductSinglePage = () => {
   const { id } = useParams();
@@ -19,10 +26,10 @@ const ProductSinglePage = () => {
   const product = useSelector(getProductSingle);
   const [activeImage, setActiveImage] = useState(0);
   const [activeImageSrc, setActiveImageSrc] = useState();
-
+  const cartMessageStatus = useSelector(getCartMessageStatus);
   const productSingleStatus = useSelector(getSingleProductStatus);
 
-  const handleClick = (_, index) => {
+  const imgClickhandle = (_, index) => {
     setActiveImageSrc(product.images[index]);
     setActiveImage(index);
   };
@@ -32,7 +39,13 @@ const ProductSinglePage = () => {
       dispatch(fetchProductSingleAsync(id));
     };
     fetchProduct();
-  }, [dispatch, id]);
+
+    if (cartMessageStatus) {
+      setTimeout(() => {
+        dispatch(setCartMessageOff());
+      }, 2000);
+    }
+  }, [dispatch, id, cartMessageStatus]);
 
   useEffect(() => {
     setActiveImageSrc(product?.images?.[0]);
@@ -60,6 +73,18 @@ const ProductSinglePage = () => {
     });
   };
 
+  const addToCartHandler = (product) => {
+    console.log("product:", product);
+    let discountedPrice =
+      product?.price - product?.price * (product?.discountPercentage / 100);
+    let totalPrice = quantity * discountedPrice;
+
+    dispatch(
+      addToCart({ ...product, quantity: quantity, totalPrice, discountedPrice })
+    );
+    dispatch(setCartMessageOn(true));
+  };
+
   return (
     <section className="bg-whitesmoke">
       <div className="product-single">
@@ -77,7 +102,7 @@ const ProductSinglePage = () => {
                         index === activeImage ? "active" : ""
                       }`}
                       key={index}
-                      onClick={() => handleClick(img, index)}
+                      onClick={() => imgClickhandle(img, index)}
                     >
                       <img src={img} alt="" className="img-cover" />
                     </div>
@@ -165,7 +190,12 @@ const ProductSinglePage = () => {
                 <div className="btns">
                   <button type="button" className="add-to-cart-btn btn">
                     <i className="fas fa-shopping-cart"></i>
-                    <span className="btn-text mx-2">Add To Cart</span>
+                    <span
+                      className="btn-text mx-2"
+                      onClick={() => addToCartHandler(product)}
+                    >
+                      Add To Cart
+                    </span>
                   </button>
                   <button type="button" className="buy-now btn mx-3">
                     <span className="btn-text">buy now</span>
@@ -176,6 +206,7 @@ const ProductSinglePage = () => {
           </div>
         </div>
       </div>
+      {cartMessageStatus && <CartMessage />}
     </section>
   );
 };

@@ -3,6 +3,7 @@ import productSlice from "./productSlice";
 import categorySlice from "./categorySlice";
 import sidebarSlice from "./sidebarSlice";
 import searchSlice from "./searchSlice";
+import cartSlice from "./cartSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     category: categorySlice,
     sidebar: sidebarSlice,
     search: searchSlice,
+    cart: cartSlice,
   },
 });
 
