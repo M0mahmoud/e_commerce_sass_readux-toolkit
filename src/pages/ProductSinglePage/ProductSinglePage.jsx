@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./ProductSinglePage.scss";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -198,7 +198,9 @@ const ProductSinglePage = () => {
                     </span>
                   </button>
                   <button type="button" className="buy-now btn mx-3">
-                    <span className="btn-text">buy now</span>
+                    <Link to={"/checkout"} className="btn-text">
+                      buy now
+                    </Link>
                   </button>
                 </div>
               </div>
