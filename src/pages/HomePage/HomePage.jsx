@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 
-import "./HomePage.scss";
-import ProductList from "../../components/ProductList/ProductList";
 import Loader from "../../components/Loader/Loader";
+import ProductList from "../../components/ProductList/ProductList";
+import "./HomePage.scss";
 
 import { useDispatch, useSelector } from "react-redux";
+import TopCategories from "../../components/Top Categories/TopCategories";
 import { getAllCategories } from "../../store/categorySlice";
 import {
   fetchProductsAsync,
@@ -38,6 +39,7 @@ const HomePage = () => {
       <div className="main-content bg-whitesmoke">
         <div className="container">
           <div className="categories py-5">
+            <TopCategories />
             <div className="categories-item">
               <div className="title-md">
                 <h3>See Our Top Products</h3>
