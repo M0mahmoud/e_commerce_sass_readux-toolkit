@@ -5,6 +5,7 @@ import ProductList from "../../components/ProductList/ProductList";
 import "./HomePage.scss";
 
 import { useDispatch, useSelector } from "react-redux";
+import Slider from "../../components/Slider/Slider";
 import TopCategories from "../../components/Top Categories/TopCategories";
 import { getAllCategories } from "../../store/categorySlice";
 import {
@@ -38,7 +39,8 @@ const HomePage = () => {
     <main>
       <div className="main-content bg-whitesmoke">
         <div className="container">
-          <div className="categories py-5">
+          <div className="categories py-1">
+            <Slider />
             <TopCategories />
             <div className="categories-item">
               <div className="title-md">

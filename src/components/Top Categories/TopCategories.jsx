@@ -64,7 +64,7 @@ const TopCategories = () => {
         <Swiper
           loop="true"
           autoplay={{
-            delay: 1400,
+            delay: 1200,
           }}
           modules={[Autoplay]}
           className="mySwiper"

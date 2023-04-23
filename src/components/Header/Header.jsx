@@ -9,7 +9,7 @@ const Header = () => {
     <header className="text-white">
       <div className="container">
         <div className="header-cnt">
-          <div className="header-cnt-top fs-13 py-2 flex align-center justify-between">
+          {/* <div className="header-cnt-top fs-13 py-2 flex align-center justify-between">
             <div className="header-cnt-top-l">
               <ul className="flex top-links align-center">
                 <li>
@@ -61,7 +61,7 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
           <div className="header-cnt-bottom">
             <Navbar />
           </div>
